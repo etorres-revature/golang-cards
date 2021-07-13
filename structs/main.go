@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type contactInfo struct {
 	email string
 	zip   int
@@ -8,17 +10,30 @@ type contactInfo struct {
 type person struct {
 	firstName string
 	lastName  string
-	contact   contactInfo
+	contactInfo
 }
 
 func main() {
 	jim := person{
 		firstName: "Jim",
 		lastName:  "Jones",
-		contact: contactInfo{
+		contactInfo: contactInfo{
 			email: "Jimbo.Jones@email.com",
 			zip:   78549,
 		},
 	}
 
+	jimPointer := &jim
+	jimPointer.updateFirstName("James")
+
+	jim.print()
+
+}
+
+func (pointerToPerson *person) updateFirstName(newFirstName string) {
+	(*pointerToPerson).firstName = newFirstName
+}
+
+func (p person) print() {
+	fmt.Printf("%+v", p)
 }
